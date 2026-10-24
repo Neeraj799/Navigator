@@ -1,13 +1,25 @@
-import { z } from 'zod';
+import { z } from "zod";
+
+// Shared rules; the original password is preserved without trimming.
+export const passwordSchema = z
+  .string()
+  .refine((value) => value.trim().length > 0, "Please enter your password.")
+  .pipe(
+    z
+      .string()
+      .min(8, "Use at least 8 characters.")
+      .regex(/[A-Z]/, "Include at least one uppercase letter.")
+      .regex(/[0-9]/, "Include at least one number.")
+      .regex(/[^A-Za-z0-9\s]/, "Include at least one special character."),
+  );
 
 // A schema describes the rules for both fields in one place.
 export const loginSchema = z.object({
-  email: z.string()
+  email: z
+    .string()
     .trim()
-    .min(1, 'Please enter your email.')
-    .pipe(z.email({ error: 'Please enter a valid email address.' })),
-  // Check for blank input without changing the user's password.
-  password: z.string().refine((value) => value.trim().length > 0, {
-    error: 'Please enter your password.',
-  }),
+    .min(1, "Please enter your email.")
+    .pipe(z.email({ error: "Please enter a valid email address." })),
+
+  password: passwordSchema,
 });

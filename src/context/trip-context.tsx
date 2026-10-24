@@ -1,18 +1,34 @@
-import { createContext, type Dispatch, type ReactNode, type SetStateAction, useContext, useState } from 'react';
+import {
+  createContext,
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction,
+  useContext,
+  useState,
+} from "react";
 
 type TripDraft = { pickup: string; dropoff: string };
-type TripContextValue = { queries: TripDraft; setQueries: Dispatch<SetStateAction<TripDraft>> };
+type TripContextValue = {
+  queries: TripDraft;
+  setQueries: Dispatch<SetStateAction<TripDraft>>;
+};
 
 const TripContext = createContext<TripContextValue | null>(null);
 
-// In-memory trip draft survives screen navigation, but not an app restart.
 export function TripProvider({ children }: { children: ReactNode }) {
-  const [queries, setQueries] = useState<TripDraft>({ pickup: '', dropoff: '' });
-  return <TripContext.Provider value={{ queries, setQueries }}>{children}</TripContext.Provider>;
+  const [queries, setQueries] = useState<TripDraft>({
+    pickup: "",
+    dropoff: "",
+  });
+  return (
+    <TripContext.Provider value={{ queries, setQueries }}>
+      {children}
+    </TripContext.Provider>
+  );
 }
 
 export function useTrip() {
   const trip = useContext(TripContext);
-  if (!trip) throw new Error('useTrip must be used inside TripProvider');
+  if (!trip) throw new Error("useTrip must be used inside TripProvider");
   return trip;
 }

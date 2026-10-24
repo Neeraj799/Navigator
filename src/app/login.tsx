@@ -3,7 +3,6 @@ import { router } from "expo-router";
 import { SymbolView } from "expo-symbols";
 import { useRef, useState } from "react";
 import {
-  Alert,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -43,7 +42,7 @@ export default function LoginScreen() {
     setSubmitted(true);
     if (!validation.success) return;
     Keyboard.dismiss();
-    // A mock action for this phase; no credentials are sent or saved.
+
     router.push("/set-locations");
   }
 
@@ -67,11 +66,11 @@ export default function LoginScreen() {
               <AppText
                 weight="extrabold"
                 accessibilityRole="header"
-                className="mt-6 text-[32px] leading-[36.8px] tracking-[-0.8px] text-[#111F2C]"
+                className="mt-6 text-[32px] leading-[36.8px] tracking-[-0.8px] text-text"
               >
                 Welcome back
               </AppText>
-              <AppText className="mt-2.5 text-sm leading-[22px] text-muted">
+              <AppText className="mt-2.5 text-[15px] leading-[24.38px] tracking-[0px] text-[#7C8B99]">
                 Log in to plan a trip and follow your route turn by turn.
               </AppText>
               <View className="mt-[30px] gap-5">
@@ -132,15 +131,13 @@ export default function LoginScreen() {
               </View>
               <Pressable
                 accessibilityRole="button"
-                onPress={() =>
-                  Alert.alert(
-                    "Forgot password?",
-                    "Password recovery is not connected in this demo.",
-                  )
-                }
-                className="mt-1.5 min-h-11 self-start justify-center"
+                onPress={() => undefined}
+                className="mt-1.5 min-h-11 self-start justify-center active:opacity-60"
               >
-                <AppText weight="medium" className="text-[13px] text-primary">
+                <AppText
+                  weight="bold"
+                  className="text-[14px] leading-[21px] tracking-[0px] text-center text-[#F1521F]"
+                >
                   Forgot password?
                 </AppText>
               </Pressable>
@@ -154,14 +151,17 @@ export default function LoginScreen() {
               <Pressable
                 accessibilityRole="button"
                 onPress={handleLogin}
-                className="min-h-[54px] items-center justify-center rounded-2xl bg-primary p-4 active:opacity-80"
+                className="min-h-[56px] items-center justify-center rounded-2xl bg-primary p-4 active:opacity-80"
               >
-                <AppText weight="bold" className="text-base text-surface">
+                <AppText
+                  weight="extrabold"
+                  className="text-[17px] leading-[25.5px] tracking-[0px] text-center text-surface"
+                >
                   Log in
                 </AppText>
               </Pressable>
               <View className="mt-1.5 flex-row flex-wrap items-center justify-center">
-                <AppText className="text-[13px] text-muted">
+                <AppText className="text-[14px] leading-[21px] tracking-[0px] text-center text-[#7C8B99]">
                   New to Navigator?
                 </AppText>
                 <Pressable
@@ -169,7 +169,10 @@ export default function LoginScreen() {
                   onPress={() => router.push("/register")}
                   className="min-h-11 justify-center px-[3px]"
                 >
-                  <AppText weight="semibold" className="text-[13px] text-text">
+                  <AppText
+                    weight="bold"
+                    className="text-[14px] leading-[21px] tracking-[0px] text-center text-text"
+                  >
                     Create an account
                   </AppText>
                 </Pressable>
