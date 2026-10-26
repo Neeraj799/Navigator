@@ -1,6 +1,5 @@
 import { z } from "zod";
 
-// Shared rules; the original password is preserved without trimming.
 export const passwordSchema = z
   .string()
   .refine((value) => value.trim().length > 0, "Please enter your password.")
@@ -13,7 +12,6 @@ export const passwordSchema = z
       .regex(/[^A-Za-z0-9\s]/, "Include at least one special character."),
   );
 
-// A schema describes the rules for both fields in one place.
 export const loginSchema = z.object({
   email: z
     .string()

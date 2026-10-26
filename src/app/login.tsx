@@ -30,7 +30,6 @@ export default function LoginScreen() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  // Revalidate current inputs so errors update as the user corrects them.
   const validation = loginSchema.safeParse({ email, password });
   const errors = validation.success
     ? undefined
